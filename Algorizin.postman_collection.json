@@ -131,7 +131,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"Instructor_Dave\",\r\n    \"student_id\": \"03a43e7f-5bbc-4cbc-8f9b-2bf64e8ed3a4\",\r\n    \"response_id\": \"1154135a-6531-47b8-87ec-eeb55e1ee593\",\r\n    \"grade\": \"B+\",\r\n    \"remark\": \"This grading is meant to be deleted\"\r\n}",
+					"raw": "{\r\n    \"username\": \"Instructor_Dave\",\r\n    \"student_id\": \"03a43e7f-5bbc-4cbc-8f9b-2bf64e8ed3a4\",\r\n    \"response_id\": \"4b034b31-da87-4cfa-ad22-f64f67e0cb96\",\r\n    \"grade\": \"B+\",\r\n    \"remark\": \"I can see some consistent improvement\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -401,6 +401,17 @@
 							"language": "json"
 						}
 					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/modify_grades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"modify_grades"
+					]
 				}
 			},
 			"response": []

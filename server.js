@@ -205,7 +205,7 @@ app.post('/grading', async function (req,res) {
     const usern = ResponseToGrade["username"]
     const Grade = ResponseToGrade["grade"]
     const Remark = ResponseToGrade["remark"]
-    const student_id = ResponseToGrade["student_id"]
+    const user_id = ResponseToGrade["student_id"]
     const response_id = ResponseToGrade["response_id"]
 
     const user = await User.findOne({username: usern }).lean()
@@ -218,13 +218,13 @@ app.post('/grading', async function (req,res) {
         return res.json({status: 'error', error: 'Only Instructor can grade a response'})
     }
 
-    const stud = await User.findOne({uid: student_id}).lean()
+    const stud = await User.findOne({uid: user_id}).lean()
 
     if (!stud) {
         return res.json({status: 'error', error: 'This student does not exist'}) 
     }
 
-    const studresp = await Submission.findOne({user_id: student_id, uid: response_id})
+    const studresp = await Submission.findOne({user_id: user_id, uid: response_id})
 
     if (!studresp) {
         return res.json({status: 'error', error: 'This response does not exist'})
@@ -232,7 +232,7 @@ app.post('/grading', async function (req,res) {
 
     try {
         const rej = await Grader.create({
-            student_id,
+            user_id,
             response_id,
             Grade,
             Remark
