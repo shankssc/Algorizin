@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"Instructor_Jim\",\r\n    \"password\": \"3456789\",\r\n    \"role\": \"Instructor\"\r\n\r\n}",
+					"raw": "{\r\n    \"username\": \"Student2\",\r\n    \"password\": \"3456789\",\r\n    \"role\": \"Student\"\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -75,7 +75,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"Instructor_Dave\",\r\n    \"title\": \"STAT-03\",\r\n    \"description\": \"Third Statistics Assignment\",\r\n    \"mentor\": \"Instructor_Dave\",\r\n    \"deadline\": \"2022-06-02\"\r\n}",
+					"raw": "{\r\n    \"username\": \"Instructor_Dave\",\r\n    \"title\": \"STAT-04\",\r\n    \"description\": \"Fourth Statistics Assignment\",\r\n    \"mentor\": \"Instructor_Dave\",\r\n    \"deadline\": \"2022-06-09\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -103,7 +103,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"Student1\",\r\n    \"title\": \"STAT-102\",\r\n    \"response\": \"This is my 2nd response\"\r\n}",
+					"raw": "{\r\n    \"username\": \"Student1\",\r\n    \"title\": \"STAT-103\",\r\n    \"response\": \"This is my extra response\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -131,7 +131,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"Instructor_Dave\",\r\n    \"student_id\": \"03a43e7f-5bbc-4cbc-8f9b-2bf64e8ed3a4\",\r\n    \"response_id\": \"4b034b31-da87-4cfa-ad22-f64f67e0cb96\",\r\n    \"grade\": \"A-\",\r\n    \"remark\": \"Better than your previous submission\"\r\n}",
+					"raw": "{\r\n    \"username\": \"Instructor_Dave\",\r\n    \"student_id\": \"03a43e7f-5bbc-4cbc-8f9b-2bf64e8ed3a4\",\r\n    \"response_id\": \"1154135a-6531-47b8-87ec-eeb55e1ee593\",\r\n    \"grade\": \"B+\",\r\n    \"remark\": \"This grading is meant to be deleted\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -193,7 +193,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"Instructor_Jim\"\r\n}",
+					"raw": "{\r\n    \"username\": \"Instructor_Dave\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -224,7 +224,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"Instructor_Dave\"\r\n}",
+					"raw": "{\r\n    \"username\": \"Student1\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -241,6 +241,166 @@
 					"path": [
 						"view_grades"
 					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Admin01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/view_users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"view_users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Admin01\",\r\n    \"registereduser\": \"Student2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/modify_users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"modify_users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Assessments",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Admin01\",\r\n    \"assessment_title\": \"STAT-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/remove_assessment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"remove_assessment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Submissions",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Admin01\",\r\n    \"submission_id\": \"f8410c14-3cad-4d07-bc13-71d0edf8f492\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/remove_submissions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"remove_submissions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Grade",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Admin01\",\r\n    \"response_id\": \"1154135a-6531-47b8-87ec-eeb55e1ee593\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/remove_grade",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"remove_grade"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Grade",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Admin01\",\r\n    \"response_id\": \"1154135a-6531-47b8-87ec-eeb55e1ee593\",\r\n    \"modified_grade\": \"A+\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				}
 			},
 			"response": []

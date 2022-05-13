@@ -325,6 +325,179 @@ app.get('/view_grades', async function (req,res) {
     res.send({message: "Success."});
 })
 
+// This method is used for getting a list of active users 
+app.get('/view_users', async function (req,res) {
+    const username = req.body.username
+
+    const user = await User.findOne({username: username}).lean()
+
+    if (!user) {
+        return res.json({status: 'error', error: 'This user does not exist'})
+    }
+
+    if (user.role !== "Administrator") {
+        return res.json({status: 'error', error: 'Only Administrator can view all the users'})
+    }
+
+    const user_obj = await User.find({}).exec()
+    console.log(user_obj)
+    return res.json({status: 'success', users: user_obj})
+
+})
+
+// This method is used for removing any users specified
+app.patch('/modify_users', async function (req,res) {
+
+    const username = req.body.username
+    const user_to_be_del = req.body.registereduser
+
+    const user = await User.findOne({username: username}).lean()
+    const registereduser = await User.findOne({username: user_to_be_del}).lean()
+
+    if (!user) {
+        return res.json({status: 'error', error: 'This user does not exist'})
+    }
+
+    if (user.role !== "Administrator") {
+        return res.json({status: 'error', error: 'Only Administrator can remove any user'})
+    }
+
+    if (!registereduser) {
+        return res.json({status: 'error', error: 'This user is not registered'})
+        
+    }
+
+    try {
+        const removed_user = await User.findOneAndDelete({username: user_to_be_del})
+        console.log(removed_user)
+        return res.json({status: 'success', deleted_user: removed_user})
+    }
+    catch(error) {
+        console.log(JSON.stringify(error))
+    }
+    
+})
+
+// This method is used for removing any created assessment
+app.patch('/remove_assessment', async function (req,res) {
+    const username = req.body.username
+    const title = req.body.assessment_title
+
+    const user = await User.findOne({username: username}).lean()
+
+    if (!user) {
+        return res.json({status: 'error', error: 'This user does not exist'})
+    }
+
+    if (user.role !== "Administrator") {
+        return res.json({status: 'error', error: 'Only Administrator can remove any user'})
+    }
+
+    try {
+        const removed_assn = await Assessment.findOneAndDelete({title: title})
+        console.log(removed_assn)
+        return res.json({status: 'success', deleted_assessment: removed_assn})
+    }
+    catch(error) {
+        console.log(JSON.stringify(error))
+    }
+
+})
+
+// This method is used for removing any responses made towards the assessment
+app.patch('/remove_submissions', async function (req,res) {
+    const username = req.body.username
+    const sub_id = req.body.submission_id
+
+    const user = await User.findOne({username: username}).lean()
+    const subm = await Submission.findOne({uid: sub_id})
+
+    if (!user) {
+        return res.json({status: 'error', error: 'This user does not exist'})
+    }
+
+    if (user.role !== "Administrator") {
+        return res.json({status: 'error', error: 'Only Administrator can remove any user'})
+    }
+
+    if (!subm) {
+        return res.json({status: 'error', error: 'No submission exists by the specified submission Id'}) 
+    }
+
+    try {
+        const removed_subm = await Submission.findOneAndDelete({uid: sub_id})
+        console.log(removed_subm)
+        return res.json({status: 'success', deleted_submission: removed_subm})
+    }
+    catch(error) {
+        console.log(JSON.stringify(error))
+    }
+
+})
+
+// This method is used for removing any grades assigned to a response
+app.patch('/remove_grade', async function (req,res) {
+    const username = req.body.username
+    const resp_id = req.body.response_id
+
+    const user = await User.findOne({username: username}).lean()
+    const resp = await Grader.findOne({response_id: resp_id})
+
+    if (!user) {
+        return res.json({status: 'error', error: 'This user does not exist'})
+    }
+
+    if (user.role !== "Administrator") {
+        return res.json({status: 'error', error: 'Only Administrator can remove any user'})
+    }
+
+    if (!resp) {
+        return res.json({status: 'error', error: 'This response is not graded yet'}) 
+    }
+
+    try {
+        const removed_grade = await Grader.findOneAndDelete({response_id: resp_id})
+        console.log(removed_grade)
+        return res.json({status: 'success', deleted_grading: removed_grade})
+    }
+    catch(error) {
+        console.log(JSON.stringify(error))
+    }
+
+})
+
+// This method is used for modifying grades made towards a submission
+app.patch('/modify_grades',async function (req,res) {
+    const username = req.body.username
+    const resp_id = req.body.response_id
+    const modified_grade = req.body.modified_grade
+
+    const user = await User.findOne({username: username}).lean()
+    const resp = await Grader.findOne({response_id: resp_id})
+
+    if (!user) {
+        return res.json({status: 'error', error: 'This user does not exist'})
+    }
+
+    if (user.role !== "Administrator") {
+        return res.json({status: 'error', error: 'Only Administrator can remove any user'})
+    }
+
+    if (!resp) {
+        return res.json({status: 'error', error: 'This response is not graded yet'}) 
+    }
+
+    try {
+        const updated_grade = await Grader.findOneAndUpdate({response_id: resp_id},{Grade: modified_grade})
+        console.log(updated_grade)
+        return res.json({status: 'success', modified_grade: updated_grade})
+    }
+    catch(error) {
+        console.log(JSON.stringify(error))
+    }
+})
+
+
 app.listen(8080, () => {
     console.log('The server is up and running')
 })
